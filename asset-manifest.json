@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Mehak005/My_Classmates.git/static/css/main.acc16e7b.css",
+    "main.js": "/Mehak005/My_Classmates.git/static/js/main.a02a137d.js",
+    "static/js/453.63d1fd0d.chunk.js": "/Mehak005/My_Classmates.git/static/js/453.63d1fd0d.chunk.js",
+    "index.html": "/Mehak005/My_Classmates.git/index.html",
+    "main.acc16e7b.css.map": "/Mehak005/My_Classmates.git/static/css/main.acc16e7b.css.map",
+    "main.a02a137d.js.map": "/Mehak005/My_Classmates.git/static/js/main.a02a137d.js.map",
+    "453.63d1fd0d.chunk.js.map": "/Mehak005/My_Classmates.git/static/js/453.63d1fd0d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.acc16e7b.css",
+    "static/js/main.a02a137d.js"
+  ]
+}
