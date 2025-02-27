@@ -10,7 +10,7 @@
 My classmate is a simple React app that shows a list of classmates on separate cards. 
 Each card displays the classmates name, favourite food and favourite color and has a like button which increases the count when clicked respectively.
 The app uses array of list of people to create each card and react components. Bootstrap is used for styling and to make the layout responsive.
-The project is deployed on GitHub for viewing it online
+The project is deployed on GitHub.
 
 ## Generative AI usage
 
