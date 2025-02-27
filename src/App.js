@@ -1,57 +1,55 @@
-// Import React and the useState hook from the React library.
-// React is used for building UI components, and useState helps manage component state.
-import React, { useState } from "react";
 
-// Import Bootstrap's CSS file to use Bootstrap classes for styling.
+// Import statements:
+
+// The CSS file for custom styling
+import './App.css';
+// Import React so we can use JSX and components
+import React from 'react';
+// Import the Card component which displays individual person information
+import Card from "./Card";
+// Import Bootstrap's CSS for styling and layout classes
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 /**
- * Card Component
- *
- * This component displays a card with details about a person.
- * It shows the person's name, favourite color, and favourite food.
- * It also includes a Like button that increments a counter each time it is clicked.
- *
- * @param {Object} props - The component props.
- * @param {Object} props.person - The person object containing:
- *   - name: {string} The person's name.
- *   - favouriteColor: {string} The person's favourite color.
- *   - favouriteFood: {string} The person's favourite food.
- * @returns {JSX.Element} A styled card displaying the person's details and a Like button.
+ * App Component
+ * This is the main component of the application.
+ * It holds an array of people and renders a list of Card components,
+ * each displaying the details of one person.
  */
-function Card({ person }) {
-  // useState hook: 'likes' holds the current like count.
-  // 'setlikes' is a function that updates the like count.
-  const [likes, setlikes] = useState(0);
+function App() {
 
-  // Event handler for the Like button.
-  // When invoked, it increments the 'likes' count by 1.
-  const handleLike = () => {
-    setlikes(likes + 1);
-  };
+  // Creating an array named People containing objects.
+  // Each object represents a classmate with their name, favourite color, and favourite food.
+  const People = [
+    { name: 'Mehak', favouriteColor: 'Black', favouriteFood: 'French Fries' },
+    { name: 'Nikhil', favouriteColor: 'Red', favouriteFood: 'Burger' },
+    { name: 'Srinivas', favouriteColor: 'Purple', favouriteFood: 'Pizza' }
+  ];
 
-  // Return the JSX for the card.
-  // The div is styled with Bootstrap classes and an inline background style.
+  // The component returns JSX that renders the following:
+  // - A container for proper layout (Bootstrap 'container' class)
+  // - A heading for the page title
+  // - A row that contains columns (using Bootstrap grid) for each Card component.
   return (
-    <div className="card mb-3 p-3" style={{ background: '#f0f0f0' }}>
-      {/* Display the person's name */}
-      <p><strong>Name:</strong> {person.name}</p>
-      {/* Display the person's favourite color */}
-      <p><strong>Favourite Color:</strong> {person.favouriteColor}</p>
-      {/* Display the person's favourite food */}
-      <p><strong>Favourite Food:</strong> {person.favouriteFood}</p>
-
-      {/* Button that triggers the handleLike function on click and displays the current like count */}
-      <button
-        className="btn btn-danger"
-        onClick={handleLike}
-      >
-        Like ({likes})
-      </button>
+    <div className="container mt-3">
+      {/* Heading for the page */}
+      <h1>My Classmates</h1>
+      {/* Bootstrap row to organize cards in a responsive grid */}
+      <div className="row">
+        {People.map((person, index) => (
+          // For each person in the People array, create a column that holds a Card component.
+          // 'col-md-4' makes each card occupy 1/3 of the row on medium+ screens.
+          // 'key' is used to give each element a unique identifier.
+          <div className="col-md-4" key={index}>
+            {/* Pass the person object as a prop to the Card component */}
+            <Card person={person} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
 
-// Export the Card component so it can be imported and used in other files.
-export default Card;
+// Export the App component so it can be imported and used in other parts of the app (e.g., in index.js)
+export default App;
 
