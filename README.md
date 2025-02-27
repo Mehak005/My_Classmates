@@ -2,7 +2,7 @@
 
 ## Deployed Webpage
 
-- URL: 
+- URL: https://Mehak005.github.io/My_Classmates/
 
 
 ## Project Description
