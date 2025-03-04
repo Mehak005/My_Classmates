@@ -21,7 +21,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
  *   - favouriteFood: {string} The person's favourite food.
  * @returns {JSX.Element} A styled card displaying the person's details and a Like button.
  */
-function Card({ person }) {
+function Card({ person = {} }) {
   // useState hook: 'likes' holds the current like count.
   // 'setlikes' is a function that updates the like count.
   const [likes, setlikes] = useState(0);

@@ -1,55 +1,78 @@
-
-// Import statements:
-
-// The CSS file for custom styling
-import './App.css';
-// Import React so we can use JSX and components
-import React from 'react';
-// Import the Card component which displays individual person information
+import React, { useState, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import Card from "./Card";
-// Import Bootstrap's CSS for styling and layout classes
-import 'bootstrap/dist/css/bootstrap.min.css';
+import TableView from "./TableView";
+import ProfileForm from "./ProfileForm";
 
-/**
- * App Component
- * This is the main component of the application.
- * It holds an array of people and renders a list of Card components,
- * each displaying the details of one person.
- */
 function App() {
+  const [profiles, setProfiles] = useState(
+    JSON.parse(localStorage.getItem("profiles")) || []
+  );
 
-  // Creating an array named People containing objects.
-  // Each object represents a classmate with their name, favourite color, and favourite food.
-  const People = [
-    { name: 'Mehak', favouriteColor: 'Black', favouriteFood: 'French Fries' },
-    { name: 'Nikhil', favouriteColor: 'Red', favouriteFood: 'Burger' },
-    { name: 'Srinivas', favouriteColor: 'Purple', favouriteFood: 'Pizza' }
-  ];
+  useEffect(() => {
+    localStorage.setItem("profiles", JSON.stringify(profiles));
+  }, [profiles]);
 
-  // The component returns JSX that renders the following:
-  // - A container for proper layout (Bootstrap 'container' class)
-  // - A heading for the page title
-  // - A row that contains columns (using Bootstrap grid) for each Card component.
+  const [view, setView] = useState("cards");
+  const [showModal, setShowModal] = useState(false);
+  const [editingProfile, setEditingProfile] = useState(null);
+
+  const addProfile = (newProfile) => {
+    newProfile.id = profiles.length + 1;
+    setProfiles([...profiles, newProfile]);
+  };
+
+  const editProfile = (updatedProfile) => {
+    setProfiles(profiles.map((profile) => (profile.id === updatedProfile.id ? updatedProfile : profile)));
+  };
+
+  const deleteProfile = (id) => {
+    setProfiles(profiles.filter((profile) => profile.id !== id));
+  };
+
   return (
     <div className="container mt-3">
-      {/* Heading for the page */}
-      <h1>My Classmates</h1>
-      {/* Bootstrap row to organize cards in a responsive grid */}
-      <div className="row">
-        {People.map((person, index) => (
-          // For each person in the People array, create a column that holds a Card component.
-          // 'col-md-4' makes each card occupy 1/3 of the row on medium+ screens.
-          // 'key' is used to give each element a unique identifier.
-          <div className="col-md-4" key={index}>
-            {/* Pass the person object as a prop to the Card component */}
-            <Card person={person} />
-          </div>
-        ))}
+      <h1 className="text-center">Student Connect</h1>
+      <div className="d-flex justify-content-center mb-3">
+        <button className={`btn ${view === "cards" ? "btn-primary" : "btn-outline-primary"} mx-2`} onClick={() => setView("cards")}>
+          View as Cards
+        </button>
+        <button className={`btn ${view === "table" ? "btn-primary" : "btn-outline-primary"} mx-2`} onClick={() => setView("table")}>
+          View as Table
+        </button>
       </div>
+
+      {view === "cards" ? (
+        <div className="row">
+          {profiles.length > 0 && profiles.map((profile) => (
+            <div className="col-md-4" key={profile.id}>
+              <Card person={profile} onDelete={deleteProfile} onEdit={() => { setEditingProfile(profile); setShowModal(true); }} />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <TableView profiles={profiles} onEdit={setEditingProfile} onDelete={deleteProfile} setShowModal={setShowModal} />
+      )}
+
+      <div className="text-center mt-3">
+        <button className="btn btn-success" onClick={() => { setEditingProfile(null); setShowModal(true); }}>
+          Add Profile
+        </button>
+      </div>
+
+      {showModal && (
+        <ProfileForm
+          show={showModal}
+          handleClose={() => setShowModal(false)}
+          addProfile={addProfile}
+          editProfile={editProfile}
+          editingProfile={editingProfile}
+        />
+      )}
     </div>
   );
 }
 
-// Export the App component so it can be imported and used in other parts of the app (e.g., in index.js)
 export default App;
+
 
