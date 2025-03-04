@@ -10,7 +10,7 @@ function Card({ person, onLike, onEdit, onDelete, darkMode }) {
         <p className="card-text"><strong>Favourite Food:</strong> {person.favouriteFood}</p>
 
         <div className="d-flex justify-content-between mt-3">
-          <button className="btn btn-outline-primary" onClick={() => onLike(person.id)}>
+          <button className="btn btn-outline-info" onClick={() => onLike(person.id)}>
             Like ({person.likes})
           </button>
           <button className="btn btn-warning mx-2" onClick={onEdit}>

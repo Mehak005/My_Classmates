@@ -1,90 +1,75 @@
-import React, { useState, useEffect } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
+import React from "react";
+import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-function ProfileForm({ show, handleClose, addProfile, editProfile, editingProfile }) {
-  const [profile, setProfile] = useState({ name: "", favouriteColor: "", favouriteFood: "" });
+function TableView({ profiles, onEdit, onDelete, setShowModal, darkMode }) {
+  const columns = [
+    { header: "Name", accessorKey: "name" },
+    { header: "Favorite Color", accessorKey: "favouriteColor" },
+    { header: "Favorite Food", accessorKey: "favouriteFood" },
+    { header: "Likes", accessorKey: "likes" },
+    {
+      header: "Actions",
+      accessorKey: "actions",
+      cell: ({ row }) => (
+        <div>
+          <button
+            className="btn btn-warning btn-sm mx-1"
+            onClick={() => {
+              onEdit(row.original);
+              setShowModal(true);
+            }}
+          >
+            Edit
+          </button>
+          <button
+            className="btn btn-danger btn-sm"
+            onClick={() => onDelete(row.original.id)}
+          >
+            Delete
+          </button>
+        </div>
+      ),
+    },
+  ];
 
-  useEffect(() => {
-    if (editingProfile) {
-      setProfile(editingProfile);
-    } else {
-      setProfile({ name: "", favouriteColor: "", favouriteFood: "" });
-    }
-  }, [editingProfile]);
-
-  const handleChange = (e) => {
-    setProfile({ ...profile, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Input Validation
-    if (!profile.name.trim() || !profile.favouriteColor.trim() || !profile.favouriteFood.trim()) {
-      alert("All fields are required!");
-      return;
-    }
-
-    if (editingProfile) {
-      editProfile(profile);
-    } else {
-      addProfile(profile);
-    }
-
-    handleClose();
-  };
+  const table = useReactTable({
+    data: profiles,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
 
   return (
-    <Modal show={show} onHide={handleClose} centered>
-      <Modal.Header closeButton>
-        <Modal.Title>{editingProfile ? "Edit Profile" : "Add Profile"}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="name">
-            <Form.Label>Name</Form.Label>
-            <Form.Control
-              type="text"
-              name="name"
-              value={profile.name}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
-          <Form.Group controlId="favouriteColor" className="mt-2">
-            <Form.Label>Favourite Color</Form.Label>
-            <Form.Control
-              type="text"
-              name="favouriteColor"
-              value={profile.favouriteColor}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
-          <Form.Group controlId="favouriteFood" className="mt-2">
-            <Form.Label>Favourite Food</Form.Label>
-            <Form.Control
-              type="text"
-              name="favouriteFood"
-              value={profile.favouriteFood}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
-          <div className="text-center mt-3">
-            <Button variant="primary" type="submit">
-              {editingProfile ? "Update Profile" : "Add Profile"}
-            </Button>
-            <Button variant="secondary" className="ms-2" onClick={handleClose}>
-              Cancel
-            </Button>
-          </div>
-        </Form>
-      </Modal.Body>
-    </Modal>
+    <div className="table-responsive">
+      <table className={`table table-striped table-bordered ${darkMode ? "table-dark" : "table-light"}`}>
+        <thead>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <th key={header.id}>
+                  {flexRender(header.column.columnDef.header, header.getContext())}
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody>
+          {table.getRowModel().rows.map((row) => (
+            <tr key={row.id}>
+              {row.getVisibleCells().map((cell) => (
+                <td key={cell.id}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
-export default ProfileForm;
+export default TableView;
+
 
 
