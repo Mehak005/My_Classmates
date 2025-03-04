@@ -1,47 +1,38 @@
-import React, { useMemo } from "react";
-import {
-  useReactTable,
-  getCoreRowModel,
-  flexRender,
-} from "@tanstack/react-table";
+import React from "react";
+import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function TableView({ profiles, onEdit, onDelete, setShowModal }) {
-  // Define table columns
-  const columns = useMemo(
-    () => [
-      { header: "Name", accessorKey: "name" },
-      { header: "Favorite Color", accessorKey: "favouriteColor" },
-      { header: "Favorite Food", accessorKey: "favouriteFood" },
-      { header: "Likes", accessorKey: "likes" },
-      {
-        header: "Actions",
-        accessorKey: "actions",
-        cell: ({ row }) => (
-          <div>
-            <button
-              className="btn btn-warning btn-sm mx-1"
-              onClick={() => {
-                onEdit(row.original);
-                setShowModal(true);
-              }}
-            >
-              Edit
-            </button>
-            <button
-              className="btn btn-danger btn-sm"
-              onClick={() => onDelete(row.original.id)}
-            >
-              Delete
-            </button>
-          </div>
-        ),
-      },
-    ],
-    [onEdit, onDelete, setShowModal]
-  );
+function TableView({ profiles, onEdit, onDelete, setShowModal, darkMode }) {
+  const columns = [
+    { header: "Name", accessorKey: "name" },
+    { header: "Favorite Color", accessorKey: "favouriteColor" },
+    { header: "Favorite Food", accessorKey: "favouriteFood" },
+    { header: "Likes", accessorKey: "likes" },
+    {
+      header: "Actions",
+      accessorKey: "actions",
+      cell: ({ row }) => (
+        <div>
+          <button
+            className="btn btn-warning btn-sm mx-1"
+            onClick={() => {
+              onEdit(row.original);
+              setShowModal(true);
+            }}
+          >
+            Edit
+          </button>
+          <button
+            className="btn btn-danger btn-sm"
+            onClick={() => onDelete(row.original.id)}
+          >
+            Delete
+          </button>
+        </div>
+      ),
+    },
+  ];
 
-  // Create table instance
   const table = useReactTable({
     data: profiles,
     columns,
@@ -50,7 +41,7 @@ function TableView({ profiles, onEdit, onDelete, setShowModal }) {
 
   return (
     <div className="table-responsive">
-      <table className="table table-striped table-bordered">
+      <table className={`table table-striped table-bordered ${darkMode ? "table-dark" : "table-light"}`}>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -79,4 +70,6 @@ function TableView({ profiles, onEdit, onDelete, setShowModal }) {
 }
 
 export default TableView;
+
+
 
