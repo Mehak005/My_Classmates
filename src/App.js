@@ -19,6 +19,7 @@ function App() {
 
   const addProfile = (newProfile) => {
     newProfile.id = profiles.length + 1;
+    newProfile.likes = 0; // Initialize likes count
     setProfiles([...profiles, newProfile]);
   };
 
@@ -28,6 +29,14 @@ function App() {
 
   const deleteProfile = (id) => {
     setProfiles(profiles.filter((profile) => profile.id !== id));
+  };
+
+  const handleLike = (id) => {
+    setProfiles(
+      profiles.map((profile) =>
+        profile.id === id ? { ...profile, likes: profile.likes + 1 } : profile
+      )
+    );
   };
 
   return (
@@ -46,7 +55,7 @@ function App() {
         <div className="row">
           {profiles.length > 0 && profiles.map((profile) => (
             <div className="col-md-4" key={profile.id}>
-              <Card person={profile} onDelete={deleteProfile} onEdit={() => { setEditingProfile(profile); setShowModal(true); }} />
+              <Card person={profile} onDelete={deleteProfile} onEdit={() => { setEditingProfile(profile); setShowModal(true); }} onLike={handleLike} />
             </div>
           ))}
         </div>
@@ -74,4 +83,3 @@ function App() {
 }
 
 export default App;
-
