@@ -1,6 +1,17 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+/**
+ * Card Component
+ * Displays individual profile cards with actions like edit, delete, and like.
+ *
+ * Props:
+ * @param {Object} person - Profile details (name, favoriteColor, favoriteFood, likes)
+ * @param {Function} onLike - Function to handle "Like" button clicks
+ * @param {Function} onEdit - Function to open the edit modal
+ * @param {Function} onDelete - Function to delete the profile
+ * @param {Boolean} darkMode - Determines if dark mode is enabled
+ */
 function Card({ person, onLike, onEdit, onDelete, darkMode }) {
   return (
     <div className={`card mb-3 p-3 shadow-sm ${darkMode ? "bg-secondary text-light" : "bg-light text-dark"}`}>
@@ -9,6 +20,7 @@ function Card({ person, onLike, onEdit, onDelete, darkMode }) {
         <p className="card-text"><strong>Favourite Color:</strong> {person.favouriteColor}</p>
         <p className="card-text"><strong>Favourite Food:</strong> {person.favouriteFood}</p>
 
+        {/* Action buttons: Like, Edit, Delete */}
         <div className="d-flex justify-content-between mt-3">
           <button className="btn btn-outline-info" onClick={() => onLike(person.id)}>
             Like ({person.likes})
