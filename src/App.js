@@ -1,22 +1,27 @@
 /**
  * App Component
+ *
  * This is the main component that manages the Student Connect application.
- * It allows users to view profiles in card or table format, add/edit/delete profiles,
- * like profiles, and toggle dark mode.
+ * Features:
+ * - View profiles in either Card or Table format.
+ * - Create, edit, and delete student profiles.
+ * - Like profiles to increase engagement.
+ * - Toggle dark mode for better user experience.
+ * - Persist data using localStorage for profile and dark mode settings.
  */
 
-import './App.css'; // Import custom styles
+import './App.css'; // Import custom CSS styles
 import React, { useState, useEffect } from 'react'; // Import React hooks
-import Navbar from "./Navbar"; // Import Navbar component
-import Card from "./Card"; // Import Card component to display profiles
-import TableView from "./TableView"; // Import TableView for tabular display of profiles
+import Navbar from "./Navbar"; // Import the Navbar component
+import Card from "./Card"; // Import the Card component to display profiles
+import TableView from "./TableView"; // Import TableView to display profiles in a table
 import ProfileForm from "./ProfileForm"; // Import ProfileForm for adding/editing profiles
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap for styling
 
 function App() {
   /**
-   * Initial profiles to be displayed when the application first loads.
-   * These are preloaded and will be available unless deleted by the user.
+   * Predefined list of profiles when the application first loads.
+   * These profiles are set by default and will remain unless removed by the user.
    */
   const initialProfiles = [
     { id: 1, name: 'Mehak', favouriteColor: 'Black', favouriteFood: 'French Fries', likes: 0 },
@@ -25,8 +30,9 @@ function App() {
   ];
 
   /**
-   * State to store profiles.
-   * Loads from localStorage if available; otherwise, uses initialProfiles.
+   * State: Profiles List
+   * - Loads profiles from localStorage if available, otherwise initializes with `initialProfiles`.
+   * - Updates localStorage whenever profiles change.
    */
   const [profiles, setProfiles] = useState(() => {
     const savedProfiles = JSON.parse(localStorage.getItem("profiles"));
@@ -34,33 +40,40 @@ function App() {
   });
 
   /**
-   * Saves profiles to localStorage whenever the profiles state changes.
+   * Effect Hook: Sync profiles state with localStorage
+   * - Every time `profiles` changes, update localStorage.
    */
   useEffect(() => {
     localStorage.setItem("profiles", JSON.stringify(profiles));
   }, [profiles]);
 
   /**
-   * State to control whether the profiles are displayed as Cards or Table.
+   * State: View Mode
+   * - Determines whether profiles are displayed as Cards or in a Table.
    */
   const [view, setView] = useState("cards");
 
   /**
-   * State to control whether the ProfileForm modal is open or closed.
+   * State: Profile Form Modal
+   * - `showModal` controls the visibility of the ProfileForm.
+   * - `editingProfile` holds the profile being edited, if applicable.
    */
   const [showModal, setShowModal] = useState(false);
   const [editingProfile, setEditingProfile] = useState(null);
 
   /**
-   * State to track whether dark mode is enabled.
-   * Loads from localStorage.
+   * State: Dark Mode Toggle
+   * - Loads user preference from localStorage.
+   * - Updates localStorage when changed.
    */
   const [darkMode, setDarkMode] = useState(
     JSON.parse(localStorage.getItem("darkMode")) || false
   );
 
   /**
-   * Saves the dark mode setting to localStorage whenever it changes.
+   * Effect Hook: Apply Dark Mode
+   * - Updates the document body class to match the dark mode state.
+   * - Saves the dark mode preference to localStorage.
    */
   useEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(darkMode));
@@ -68,35 +81,40 @@ function App() {
   }, [darkMode]);
 
   /**
-   * Toggles dark mode on and off.
+   * Function: Toggle Dark Mode
+   * - Switches between light and dark themes.
    */
   const toggleDarkMode = () => {
     setDarkMode(prevMode => !prevMode);
   };
 
   /**
-   * Adds a new profile to the list.
+   * Function: Add a New Profile
+   * - Adds a new profile to the list and assigns it an incremental ID.
    */
   const addProfile = (newProfile) => {
     setProfiles([...profiles, { ...newProfile, id: profiles.length + 1, likes: 0 }]);
   };
 
   /**
-   * Edits an existing profile.
+   * Function: Edit an Existing Profile
+   * - Updates a profile in the list by matching the ID.
    */
   const editProfile = (updatedProfile) => {
     setProfiles(profiles.map((profile) => (profile.id === updatedProfile.id ? updatedProfile : profile)));
   };
 
   /**
-   * Deletes a profile by filtering it out of the state.
+   * Function: Delete a Profile
+   * - Removes a profile from the list based on its ID.
    */
   const deleteProfile = (id) => {
     setProfiles(profiles.filter((profile) => profile.id !== id));
   };
 
   /**
-   * Increments the like count for a profile.
+   * Function: Like a Profile
+   * - Increments the like count for a profile.
    */
   const handleLike = (id) => {
     setProfiles(
@@ -108,14 +126,14 @@ function App() {
 
   return (
     <div className={`container-fluid ${darkMode ? "bg-dark text-light" : "bg-light text-dark"}`}>
-      {/* Navigation bar with view and dark mode toggles */}
+      {/* Navbar with View Mode Toggle and Dark Mode Toggle */}
       <Navbar view={view} setView={setView} darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
 
       <div className="container">
         {/* Page Title */}
         <h2 className="text-center mt-4 mb-4">My Classmates</h2>
 
-        {/* Conditional Rendering: Show Cards or Table */}
+        {/* Conditional Rendering: Show Profiles as Cards or Table */}
         {view === "cards" ? (
           <div className="row mt-3">
             {/* Render Profile Cards */}

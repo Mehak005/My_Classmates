@@ -1,47 +1,62 @@
-import React from "react";
-import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
-import "bootstrap/dist/css/bootstrap.min.css";
+/**
+ * TableView Component
+ *
+ * This component displays a table of student profiles using TanStack Table.
+ * Users can:
+ * - View profiles in a structured table format.
+ * - Edit profiles via a modal form.
+ * - Delete profiles directly from the table.
+ * - Supports dark mode for better visibility.
+ */
+
+import React from "react"; // Import React
+import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table"; // Import TanStack Table for dynamic rendering
+import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap for table styling
 
 /**
  * TableView Component
- * Displays profile data in a table format with sorting and actions like edit and delete.
  *
  * Props:
- * @param {Array} profiles - List of profiles to display in the table.
+ * @param {Array} profiles - List of student profiles.
  * @param {Function} onEdit - Function to handle profile editing.
- * @param {Function} onDelete - Function to handle profile deletion.
- * @param {Function} setShowModal - Function to control the edit modal visibility.
+ * @param {Function} onDelete - Function to delete a profile.
+ * @param {Function} setShowModal - Function to control the ProfileForm modal visibility.
  * @param {Boolean} darkMode - Determines if dark mode is enabled.
  */
 function TableView({ profiles, onEdit, onDelete, setShowModal, darkMode }) {
 
-  // Define the table columns
+  /**
+   * Column Definitions for the Table
+   * Each column represents a field in the profile.
+   */
   const columns = [
-    { header: "Name", accessorKey: "name" }, // Displays the name of the person
-    { header: "Favorite Color", accessorKey: "favouriteColor" }, // Displays the favorite color
-    { header: "Favorite Food", accessorKey: "favouriteFood" }, // Displays the favorite food
+    { header: "ID", accessorKey: "id" }, // Unique identifier for each profile
+    { header: "Name", accessorKey: "name" }, // Displays student name
+    { header: "Favorite Color", accessorKey: "favouriteColor" }, // Displays favorite color
+    { header: "Favorite Food", accessorKey: "favouriteFood" }, // Displays favorite food
     { header: "Likes", accessorKey: "likes" }, // Displays the number of likes
-
     {
-      header: "Actions", // Column for actions (Edit/Delete)
+      header: "Actions",
       accessorKey: "actions",
+      /**
+       * Renders action buttons for each row:
+       * - Edit: Opens modal to edit the selected profile.
+       * - Delete: Removes the selected profile.
+       */
       cell: ({ row }) => (
         <div>
-          {/* Edit Button - Opens the edit modal */}
           <button
             className="btn btn-warning btn-sm mx-1"
             onClick={() => {
-              onEdit(row.original);
-              setShowModal(true);
+              onEdit(row.original); // Pass the selected profile to the editing function
+              setShowModal(true); // Open the modal form for editing
             }}
           >
             Edit
           </button>
-
-          {/* Delete Button - Removes the profile */}
           <button
             className="btn btn-danger btn-sm"
-            onClick={() => onDelete(row.original.id)}
+            onClick={() => onDelete(row.original.id)} // Call delete function for this profile
           >
             Delete
           </button>
@@ -50,19 +65,25 @@ function TableView({ profiles, onEdit, onDelete, setShowModal, darkMode }) {
     },
   ];
 
-  // Create the table instance using tanstack/react-table
+  /**
+   * Initializes the TanStack Table instance with:
+   * - `data`: Profile list.
+   * - `columns`: Column definitions.
+   * - `getCoreRowModel`: Generates the table row structure.
+   */
   const table = useReactTable({
-    data: profiles, // Data source (profiles array)
-    columns, // Column definitions
+    data: profiles,
+    columns,
     getCoreRowModel: getCoreRowModel(),
   });
 
   return (
     <div className="table-responsive">
-      {/* Table with conditional dark mode styling */}
+      {/* Render Table with Dark Mode Support */}
       <table className={`table table-striped table-bordered ${darkMode ? "table-dark" : "table-light"}`}>
+
+        {/* Table Header */}
         <thead>
-          {/* Table headers dynamically generated */}
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
@@ -74,8 +95,8 @@ function TableView({ profiles, onEdit, onDelete, setShowModal, darkMode }) {
           ))}
         </thead>
 
+        {/* Table Body */}
         <tbody>
-          {/* Table rows dynamically generated */}
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
               {row.getVisibleCells().map((cell) => (
@@ -86,10 +107,10 @@ function TableView({ profiles, onEdit, onDelete, setShowModal, darkMode }) {
             </tr>
           ))}
         </tbody>
+
       </table>
     </div>
   );
-
 }
 
 export default TableView;

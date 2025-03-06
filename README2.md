@@ -35,3 +35,15 @@ Customized all data and structured final implementation.
 Implemented Like button functionality & form validation. 
 Integrated Dark Mode and localStorage persistence.
 Handled Deployment, Table Sorting/Filtering, and Friend Request features.
+
+## Data Table Integration
+
+To enhance the profile listing experience, I integrated **TanStack Table** into my application. 
+
+## Why I Chose TanStack Table?
+1. **Lightweight** – Unlike AG-Grid or MUI, it does not add unnecessary dependencies.
+2. **Highly Customizable** – Gives full control over table styling and functionality.
+3. **React-Optimized** – Built specifically for React, unlike DataTables.net, which requires jQuery.
+
+
+ 
