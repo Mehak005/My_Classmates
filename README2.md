@@ -1,7 +1,7 @@
 # Student Connect - Interactive Student Directory
 
 ## Deployed Webpage
-- URL: [https://Mehak005.github.io/My_Classmates/](https://Mehak005.github.io/My_Classmates/)
+- URL: https://Mehak005.github.io/My_Classmates/
 
 
 ## Project Description
