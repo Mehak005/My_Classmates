@@ -33,18 +33,21 @@ This enables a seamless experience without needing a backend.
 I used generative AI to get:
 - Guidance on React and Bootstrap best practices.
 - Clarifications on component structuring for better maintainability.
-- Suggestions for improving table sorting and filtering.
+- Suggestions for improving table  filtering.
 
 ## AI-Generated Parts
-- The initial component outline for profile rendering.
-- General suggestions on React State Management (`useState`).
-- Example implementations for Bootstrap styling.
+- **Code Structuring & Optimization**: Helped refine component breakdown (`Card.js`, `TableView.js`, `ProfileForm.js`).
+- **Best Practices for State Management**: Suggested using `useState` and `useEffect` for profile storage.
+- **Local Storage Implementation**: Assisted in persisting profiles and dark mode settings.
+- **Styling Improvements**: Provided ideas on Bootstrap-based UI enhancements.
 
-## My Own Contribution
-Customized all data and structured final implementation.
-Implemented Like button functionality & form validation. 
-Integrated Dark Mode and localStorage persistence.
-Handled Deployment, Table Sorting/Filtering, and Friend Request features.
+### **My Own Contributions**
+- **Designed and implemented the entire project from scratch.**
+- **Developed full UI & functionality**, including profile creation, editing, deletion, and likes.
+- **Integrated Local Storage** for persistent profiles and dark mode.
+- **Implemented form validation** to prevent invalid input.
+- **Debugged, refined, and deployed the final version independently.**
+- **Handled all project structuring, improvements, and real-world usability considerations.**
 
 ## Data Table Integration
 
