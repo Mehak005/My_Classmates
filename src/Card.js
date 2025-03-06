@@ -13,28 +13,32 @@ import "bootstrap/dist/css/bootstrap.min.css";
  * @param {Boolean} darkMode - Determines if dark mode is enabled
  */
 function Card({ person, onLike, onEdit, onDelete, darkMode }) {
-  return (
+return (
     <div className={`card mb-3 p-3 shadow-sm ${darkMode ? "bg-secondary text-light" : "bg-light text-dark"}`}>
       <div className="card-body">
+        {/* Profile name */}
         <h5 className="card-title">{person.name}</h5>
+
+        {/* Profile details */}
         <p className="card-text"><strong>Favourite Color:</strong> {person.favouriteColor}</p>
         <p className="card-text"><strong>Favourite Food:</strong> {person.favouriteFood}</p>
 
         {/* Action buttons: Like, Edit, Delete */}
         <div className="d-flex justify-content-between mt-3">
           <button className="btn btn-outline-info" onClick={() => onLike(person.id)}>
-            Like ({person.likes})
+            Like ({person.likes}) {/* Display number of likes */}
           </button>
           <button className="btn btn-warning mx-2" onClick={onEdit}>
-            Edit
+            Edit {/* Opens the edit form */}
           </button>
           <button className="btn btn-danger" onClick={() => onDelete(person.id)}>
-            Delete
+            Delete {/* Removes the profile */}
           </button>
         </div>
       </div>
     </div>
   );
+
 }
 
 export default Card;

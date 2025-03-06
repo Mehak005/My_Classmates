@@ -59,9 +59,10 @@ function TableView({ profiles, onEdit, onDelete, setShowModal, darkMode }) {
 
   return (
     <div className="table-responsive">
+      {/* Table with conditional dark mode styling */}
       <table className={`table table-striped table-bordered ${darkMode ? "table-dark" : "table-light"}`}>
         <thead>
-          {/* Render table headers dynamically */}
+          {/* Table headers dynamically generated */}
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
@@ -74,7 +75,7 @@ function TableView({ profiles, onEdit, onDelete, setShowModal, darkMode }) {
         </thead>
 
         <tbody>
-          {/* Render table rows dynamically */}
+          {/* Table rows dynamically generated */}
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
               {row.getVisibleCells().map((cell) => (
@@ -88,6 +89,7 @@ function TableView({ profiles, onEdit, onDelete, setShowModal, darkMode }) {
       </table>
     </div>
   );
+
 }
 
 export default TableView;
