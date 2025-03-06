@@ -6,14 +6,24 @@
 
 ## Project Description
 
-Student Connect is an interactive ReactJS-based student directory that allows users to:
+Student Connect is a ReactJS-based student directory that allows users to:
 - **Create, Modify, and Delete** student profiles.
 - **Like other students’ profiles** (likes increase on button click).
-- **View profiles in a Table format** with sorting and filtering options.
+- **View profiles in a Table format** with sorting and filtering.
 - **Dark Mode Support** for an improved UI experience.
+- **Persistent Data Storage** using Local Storage.
 
-The app **dynamically renders student profiles** from an array using React’s `useState` and `.map()`.  
-It is **styled using Bootstrap** for a clean, responsive layout and deployed on **GitHub Pages**.
+The app **dynamically renders student profiles** using React’s `useState` and `.map()`,  
+is **styled with Bootstrap**, and is **deployed on GitHub Pages**.
+
+## Local Storage Integration
+Student data and dark mode preferences are **saved in Local Storage**, ensuring:
+- Profiles persist across page reloads.
+- Dark mode settings remain unchanged between sessions.
+- User modifications (add, edit, delete, like) are stored automatically.
+
+This enables a seamless experience without needing a backend.
+
 
 
 
