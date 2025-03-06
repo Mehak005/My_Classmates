@@ -1,28 +1,49 @@
-# My Classmates - React App
+# Student Connect - Interactive Student Directory
 
 ## Deployed Webpage
-
-- URL: https://Mehak005.github.io/My_Classmates/
+- URL: https://mehak005.github.io/My_Classmates/
 
 
 ## Project Description
 
-My classmate is a simple React app that shows a list of classmates on separate cards. 
-Each card displays the classmates name, favourite food and favourite color and has a like button which increases the count when clicked respectively.
-The app uses array of list of people to create each card and react components. Bootstrap is used for styling and to make the layout responsive.
-The project is deployed on GitHub.
+Student Connect is an interactive ReactJS-based student directory that allows users to:
+- **Create, Modify, and Delete** student profiles.
+- **Like other students’ profiles** (likes increase on button click).
+- **View profiles in a Table format** with sorting and filtering options.
+- **Dark Mode Support** for an improved UI experience.
 
-## Generative AI usage
-
-## How I used it?
-I used generative AI to get general guidance on React and Bootstrap usage, and to clarify best practise for structuring components.
-
-## AI generated parts:
-The core outline of the Card App components was suggested by AI.
-
-## My own contribution:
-I customized the data and styling myself, wrote the final code and integrated the like button functionality. 
-Handled all deployment steps.
+The app **dynamically renders student profiles** from an array using React’s `useState` and `.map()`.  
+It is **styled using Bootstrap** for a clean, responsive layout and deployed on **GitHub Pages**.
 
 
 
+## Generative AI Usage
+
+## How I used AI?
+I used generative AI to get:
+- Guidance on React and Bootstrap best practices.
+- Clarifications on component structuring for better maintainability.
+- Suggestions for improving table sorting and filtering.
+
+## AI-Generated Parts
+- The initial component outline for profile rendering.
+- General suggestions on React State Management (`useState`).
+- Example implementations for Bootstrap styling.
+
+## My Own Contribution
+Customized all data and structured final implementation.
+Implemented Like button functionality & form validation. 
+Integrated Dark Mode and localStorage persistence.
+Handled Deployment, Table Sorting/Filtering, and Friend Request features.
+
+## Data Table Integration
+
+To enhance the profile listing experience, I integrated **TanStack Table** into my application. 
+
+## Why I Chose TanStack Table?
+1. **Lightweight** – Unlike AG-Grid or MUI, it does not add unnecessary dependencies.
+2. **Highly Customizable** – Gives full control over table styling and functionality.
+3. **React-Optimized** – Built specifically for React, unlike DataTables.net, which requires jQuery.
+
+
+ 
